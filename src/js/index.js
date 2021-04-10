@@ -1,17 +1,34 @@
-import axios from "axios";
-import 'idempotent-babel-polyfill';
+import Search from "./models/Search";
+import * as searchView from "./views/SearchView"
+import {elements} from "./views/base"
 
-async function getResults (query) {
-    const key = "28064759-4fcf-41bc-a921-e7d90e986072"
+// Global state of the app
+const state = {};
 
-    try {
-        const res = await axios(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}&key=${key}`)
-        const recipes = res.data.data.recipes;
-        console.log(recipes)
-    } catch (error) {
-        alert(error)
+const controlSearch = async () => {
+
+    // 1.) Get Query from the view
+
+    const query = searchView.getInput(); //TODO
+
+    if (query) {
+        // 2.) New search object and add it to state
+        state.search = new Search(query);
+
+        // 3.) Prepare UI for results
+        searchView.clearInput()
+        searchView.clearResults()
+
+        // 4.) Search for recipe
+        await state.search.getResults();
+
+        // 5.) render result on UI
+        searchView.renderResults(state.search.result)
     }
-    
+
 }
-getResults("pizza")
- 
+
+elements.searchForm.addEventListener("submit", e => {
+    e.preventDefault();
+    controlSearch()
+})
