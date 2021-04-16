@@ -1,4 +1,5 @@
 import Search from "./models/Search";
+import Recipe from "./models/Recipe";
 import * as searchView from "./views/SearchView";
 import {elements, renderLoader, clearLoader} from "./views/base";
 
@@ -47,3 +48,7 @@ elements.searchResPages.addEventListener("click", e => {
         console.log(goToPage);
     }
 });
+
+const r = new Recipe("5ed6604591c37cdc054bca3b");
+r.getRecipe();
+console.log(r)
