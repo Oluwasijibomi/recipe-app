@@ -56,7 +56,7 @@ elements.searchResPages.addEventListener("click", e => {
         const goToPage = parseInt(btn.dataset.goto, 10);
         searchView.clearResults()
         searchView.renderResults(state.search.result, goToPage)
-        console.log(goToPage);
+        //console.log(goToPage);
     }
 });
 
@@ -66,11 +66,11 @@ const controlRecipe = async () => {
 
     // GET THE ID FROM URL
     const id = window.location.hash.replace("#", "");
-    console.log(id)
+    //console.log(id)
 
     if (id) {
         // prepare UI for changes to
-
+ 
         // Create new recipe object
         state.recipe = new Recipe(id);
 
@@ -85,7 +85,7 @@ const controlRecipe = async () => {
         state.recipe.calcServings()
 ;
         // Render recipe
-        console.log(state.recipe)
+        //console.log(state.recipe)
         } catch (err) {
             alert("Error Processing Recipe")
         }
